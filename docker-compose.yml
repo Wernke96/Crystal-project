@@ -1,0 +1,15 @@
+services:
+  crystal_app:
+    image: crystal:latest
+    container_name: crystal_app
+    working_dir: /app
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    command: sh -c "shards install && crystal run src/index.cr"
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    ports:
+      - "3000:3000"
