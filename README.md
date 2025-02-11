@@ -99,7 +99,7 @@ docker-compose down
 docker-compose up --build
 
 # Run a one-off command
-docker-compose run --rm crystal_app crystal spec
+docker-compose run --rm crystal_app crystal_app spec
 ```
 
 ## Additional Notes
