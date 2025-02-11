@@ -9,9 +9,8 @@ Signal::INT.trap do
   running = false
 end
 
-puts running
 while running 
-  AWPriceTracker::PriceScraper.scrape_price
+  puts AWPriceTracker::PriceScraper.scrape_price
   puts "Scraped price"
-  sleep(60)
+  sleep 60.seconds
 end

@@ -33,7 +33,6 @@ module AWPriceTracker
     end
 
     private def self.save_price(price : Float64)
-      puts price
       Database.connection.exec(
         "INSERT INTO price_history (price) VALUES (?)",
         price
