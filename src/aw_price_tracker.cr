@@ -13,5 +13,5 @@ puts running
 while running 
   AWPriceTracker::PriceScraper.scrape_price
   puts "Scraped price"
-  sleep(10)
+  sleep(60)
 end
