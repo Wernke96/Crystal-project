@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AW SuperFast Roadster Price Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .chart-container {
+      margin: 20px 0;
+      height: 400px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>AW SuperFast Roadster Price History</h1>
+  <button onclick="triggerScrape()">Scrape Now</button>
+  <div class="chart-container">
+    <canvas id="priceChart"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: <%= prices.map { |p| p[1].to_s }.to_json %>,
+        datasets: [{
+          label: 'Price ($)',
+          data: <%= prices.map { |p| p[0] }.to_json %>,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+
+    async function triggerScrape() {
+      const response = await fetch('/scrape', { method: 'POST' });
+      const data = await response.json();
+      
+      chart.data.labels.push(data.timestamp);
+      chart.data.datasets[0].data.push(data.price);
+      chart.update();
+    }
+  </script>
+</body>
+</html> 

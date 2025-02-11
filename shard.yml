@@ -1,0 +1,16 @@
+name: aw_price_tracker
+version: 0.1.0
+
+dependencies:
+  db:
+    github: crystal-lang/crystal-db
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  kemal:
+    github: kemalcr/kemal
+
+targets:
+  aw_price_tracker:
+    main: src/aw_price_tracker.cr
+
+crystal: '>= 1.9.0' 
